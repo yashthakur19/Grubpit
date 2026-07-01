@@ -1,6 +1,7 @@
+import './RoomHistory.css';
 function RoomHistory() {
     return (
-        <div>
+        <div className="room-history">
             <h1>Room History</h1>
         </div>
     );

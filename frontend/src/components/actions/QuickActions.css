@@ -1,0 +1,56 @@
+/* Whole Quick Actions Section */
+.quick-actions{
+    width: 50%;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+/* Section Heading */
+.quick-actions h2{
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Parent of both cards */
+.btn-container{
+    display: flex;
+    gap: 20px;
+}
+
+/* Individual Card */
+.btn{
+    flex: 1;
+    background-color: #e6e6e6;
+    border-radius: 12px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+
+/* Button */
+.btn button{
+    width: fit-content;
+
+    padding: 10px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background-color: #3b82f6;
+
+    color: white;
+
+    font-size: 16px;
+}
+
+/* Hover Effect */
+.btn button:hover{
+    background-color: #2563eb;
+}
