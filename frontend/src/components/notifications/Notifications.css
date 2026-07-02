@@ -1,0 +1,76 @@
+/* Notification Section */
+
+.notifications{
+    width:450px;
+    margin-left:600px;
+}
+
+/* Heading */
+
+.notifications h2{
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+/* List */
+
+.notification-list{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+/* Card */
+
+.notification-card{
+
+    background:#e6e6e6;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    transition:0.3s ease;
+}
+
+/* Hover */
+
+.notification-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+/* Title */
+
+.notification-card h3{
+
+    font-size:18px;
+
+}
+
+/* Message */
+
+.notification-card p{
+
+    color:#555;
+
+}
+
+/* Time */
+
+.notification-card span{
+
+    font-size:13px;
+
+    color:gray;
+
+}

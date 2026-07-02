@@ -5,6 +5,7 @@ import Notifications from '../components/notifications/Notifications';
 import QuickActions from '../components/actions/QuickActions';
 import RoomHistory from '../components/history/RoomHistory';
 import WelcomeCard from '../components/welcome/WelcomeCard';
+import './Dashboard.css';
 function Dashboard() {
   return (
   <main>
@@ -12,15 +13,16 @@ function Dashboard() {
     <div className="welcome-card">
       <WelcomeCard />
     </div>
-    <CreateRoomModal />
-    <JoinRoomModal />
+  
     <div className="container">
       
       <QuickActions />
-      <RoomHistory />
-      <Notifications />
+      
     </div>
-    
+    <div className="box-container">
+    <RoomHistory />
+      <Notifications />
+      </div>
   </main>
   );
 }

@@ -1,8 +1,9 @@
 /* Whole Quick Actions Section */
 .quick-actions{
-    width: 50%;
-    margin-top: 30px;
-    margin-left: 20px;
+    width: 40%;
+    margin-top:20px; 
+   margin-down: 20px;
+   margin-left:40px;
 }
 
 /* Section Heading */
