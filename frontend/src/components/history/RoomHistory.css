@@ -1,9 +1,7 @@
 .room-history{
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
-    margin-top: 20px;
-    width: 461px;
+    width: 350px;
     height: 300px;
     padding: 16px;
     border-radius: 8px;
@@ -11,7 +9,11 @@
       color: #000000;
 }
 .rooms{
+    
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+    hover{
+        cursor: pointer;
+    }
 }

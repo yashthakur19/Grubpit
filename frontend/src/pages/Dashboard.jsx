@@ -1,29 +1,43 @@
-import CreateRoomModal from '../components/CreateRoomModal';
-import JoinRoomModal from '../components/JoinRoomModal';  
+import CreateRoomModal from '../components/createroommodal/CreateRoomModal';
+import JoinRoomModal from '../components/joinroommodal/JoinRoomModal';  
 import Navbar from '../components/navbar/Navbar';
 import Notifications from '../components/notifications/Notifications';
 import QuickActions from '../components/actions/QuickActions';
 import RoomHistory from '../components/history/RoomHistory';
 import WelcomeCard from '../components/welcome/WelcomeCard';
 import './Dashboard.css';
+import { useState } from 'react';
 function Dashboard() {
+  const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
+  const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
   return (
-  <main>
+ <main className="dashboard">
     <Navbar />
-    <div className="welcome-card">
-      <WelcomeCard />
+    <WelcomeCard />
+    <QuickActions
+     onCreateRoomClick={() => setIsCreateRoomModalOpen(true)}
+     onJoinRoomClick={() => setIsJoinRoomModalOpen(true)}
+    />
+    {isCreateRoomModalOpen && (
+        <CreateRoomModal
+          isOpen={isCreateRoomModalOpen}
+          onClose={() => setIsCreateRoomModalOpen(false)}
+        />
+      )}
+      {isJoinRoomModalOpen && (
+        <JoinRoomModal
+          isOpen={isJoinRoomModalOpen}
+          onClose={() => setIsJoinRoomModalOpen(false)}
+        />
+      )}
+    
+    
+    <div className="dashboard-content">
+        <RoomHistory />
+        <Notifications />
     </div>
-  
-    <div className="container">
-      
-      <QuickActions />
-      
-    </div>
-    <div className="box-container">
-    <RoomHistory />
-      <Notifications />
-      </div>
-  </main>
+    
+</main>
   );
 }
 

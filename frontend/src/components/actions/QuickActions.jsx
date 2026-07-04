@@ -1,16 +1,16 @@
 import './QuickActions.css';
-function QuickActions() {
+function QuickActions({ onCreateRoomClick, onJoinRoomClick }) {
     return (
        <section className="quick-actions">
             <h2>Quick Actions</h2>
             <div className="btn-container">
-            <btn className="btn">
+            <button className="btn">
                 create room
-            </btn>
+            </button>
 
-            <btn className="btn">
+            <button className="btn" onClick={onJoinRoomClick}>
                 join room
-            </btn>
+            </button>
         </div>
         </section>
     );

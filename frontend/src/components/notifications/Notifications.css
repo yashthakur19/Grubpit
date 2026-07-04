@@ -1,8 +1,9 @@
 /* Notification Section */
 
 .notifications{
-    width:450px;
-    margin-left:600px;
+    width: 450px;
+    background-color:#467989;
+    border-radius:12px;
 }
 
 /* Heading */

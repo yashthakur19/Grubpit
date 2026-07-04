@@ -1,5 +1,29 @@
-.box-container {
+/* Whole Dashboard */
+
+.dashboard{
+    min-height: 100vh;
+    padding: 30px;
+    background-color: #111212;
+
     display: flex;
-    
-  
+    flex-direction: column;
+    gap: 30px;
+}
+.dashboard-content{
+
+    display: flex;
+
+    gap: 25px;
+
+    align-items: flex-start;
+}
+.room-history{
+
+    flex: 2;
+
+}
+.notifications{
+
+    flex: 1;
+
 }

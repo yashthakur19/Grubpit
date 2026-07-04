@@ -13,7 +13,7 @@ function RoomHistory() {
                 2 members
             </div>
 
-           < div className="rooms">
+           <div className="rooms">
            <h2>MERN Stack Development</h2>
            5 members
            </div>
