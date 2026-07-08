@@ -4,7 +4,7 @@ function QuickActions({ onCreateRoomClick, onJoinRoomClick }) {
        <section className="quick-actions">
             <h2>Quick Actions</h2>
             <div className="btn-container">
-            <button className="btn">
+            <button className="btn" onClick={onCreateRoomClick}>
                 create room
             </button>
 
