@@ -7,6 +7,7 @@ import RoomHistory from '../components/history/RoomHistory';
 import WelcomeCard from '../components/welcome/WelcomeCard';
 import './Dashboard.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 function Dashboard() {
   
    useEffect(()=>{console.log("Dashboard Mounted")
@@ -23,12 +24,13 @@ function Dashboard() {
   const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
   const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
  
-    function handleCreateRoom(RoomData) {
+    async function handleCreateRoom(RoomData) {
     // Logic to handle room creation can be added here
     console.log('Room created successfully!');
     
     setRoom((prevRooms) => [...prevRooms, RoomData]);
-
+    const response = await axios.post('http://localhost:5000/api/room', RoomData);
+    console.log('Response from server:', response.data);
     setIsCreateRoomModalOpen(false); // Close the modal after creation
   }
 
