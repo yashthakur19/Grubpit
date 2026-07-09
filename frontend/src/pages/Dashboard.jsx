@@ -8,7 +8,7 @@ import WelcomeCard from '../components/welcome/WelcomeCard';
 import './Dashboard.css';
 import { useEffect, useState } from 'react';
 function Dashboard() {
-  c
+  
    useEffect(()=>{console.log("Dashboard Mounted")
     return () => {
       console.log("Dashboard Unmounted");
@@ -17,22 +17,27 @@ function Dashboard() {
 
       
    
-  function handleCreateRoom(RoomData) {
-    // Logic to handle room creation can be added here
-    console.log('Room created successfully!');
-    
-    setRoom([...room, RoomData]);
 
-    setIsCreateRoomModalOpen(false); // Close the modal after creation
-  }
-  const [room,setRoom] = useState([]);
+  const [room,setRoom] = useState(()=>{const storedRoom = localStorage.getItem('room');
+  return storedRoom ? JSON.parse(storedRoom) : []});
   const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
   const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
  
+    function handleCreateRoom(RoomData) {
+    // Logic to handle room creation can be added here
+    console.log('Room created successfully!');
+    
+    setRoom((prevRooms) => [...prevRooms, RoomData]);
+
+    setIsCreateRoomModalOpen(false); // Close the modal after creation
+  }
+
   useEffect(() => {
       console.log('Updated room state:', room);
       localStorage.setItem('room', JSON.stringify(room));
+      console.log(localStorage.getItem('room'));
     }, [room]);
+ 
   return (
  <main className="dashboard">
     <Navbar />
