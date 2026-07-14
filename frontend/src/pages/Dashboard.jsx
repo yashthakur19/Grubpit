@@ -9,8 +9,17 @@ import './Dashboard.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 function Dashboard() {
-  
+  async function fetchRooms() {
+    try {
+      const response = await axios.get('http://localhost:5000/api/room');
+      setRoom(response.data);
+      console.log('Fetched rooms:', response.data);
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    }
+  }
    useEffect(()=>{console.log("Dashboard Mounted")
+    fetchRooms();
     return () => {
       console.log("Dashboard Unmounted");
     }
@@ -26,11 +35,16 @@ function Dashboard() {
  
     async function handleCreateRoom(RoomData) {
     // Logic to handle room creation can be added here
-    console.log('Room created successfully!');
-    
-    setRoom((prevRooms) => [...prevRooms, RoomData]);
+   
+      try{
     const response = await axios.post('http://localhost:5000/api/room', RoomData);
+    await fetchRooms(); // Fetch the updated list of rooms after creation
+    setRoom(prevRooms => [...prevRooms, response.data]); // Update the room state with the new room
     console.log('Response from server:', response.data);
+      }
+    catch (error) {
+      console.error('Error creating room:', error);
+    }
     setIsCreateRoomModalOpen(false); // Close the modal after creation
   }
 

@@ -1,13 +1,23 @@
 import Room from '../models/roomModel.js';
 import generateRoomCode from '../utils/generateRoomCode.js';
+import bcrypt from 'bcrypt';
 async function createRoom(req,res){
 
     try{
-        const roomCode=generateRoomCode();
-        const {Roomname,password,Roomcode,Roomtype,maxparticipants}=req.body;
+        const {Roomname,password,Roomtype,maxparticipants}=req.body;
+        let roomCode=generateRoomCode();
+        let existingroom=await Room.findOne({roomCode});
+        while(existingroom){
+            roomCode=generateRoomCode();
+            existingroom=await Room.findOne({roomCode});
+        }
+        let encryptedPassword=null;
+        if(password){
+            encryptedPassword=await bcrypt.hash(password, 10);
+        }
         const newRoom=await Room.create({
             Roomname,
-            password,
+            password: encryptedPassword,
             roomCode,
             Roomtype,
             maxparticipants,
@@ -17,4 +27,13 @@ async function createRoom(req,res){
         res.status(500).json({message:"Error creating room",error});    
     }
 }
-export default {createRoom};
+
+async function getRooms(req,res){
+    try{
+        const rooms=await Room.find();
+        res.status(200).json(rooms);
+    } catch (error) {
+        res.status(500).json({message:"Error fetching rooms",error});    
+}
+}
+export  { createRoom };
