@@ -50,7 +50,7 @@ function CreateRoomModal({ isOpen, onClose,onCreate }) {
             <option value="category2">Leetcode Questions</option>
         </select>
         Maximum Participants: <input type="number" placeholder="Enter maximum participants" value={maxParticipants} onChange={(e) => setMaxParticipants(e.target.value)} />
-        <button className="create-button" onClick={handleSubmit}>
+        <button className="create-button" onClick={handleSubmit} >
             Create
         </button>
         <button className="close-button" onClick={onClose}>

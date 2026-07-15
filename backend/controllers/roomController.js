@@ -36,4 +36,23 @@ async function getRooms(req,res){
         res.status(500).json({message:"Error fetching rooms",error});    
 }
 }
-export  { createRoom };
+
+async function joinRoom(req,res){
+    try{
+        const {roomCode,password}=req.body;
+        const room=await Room.findOne({roomCode});
+        if(!room){
+            return res.status(404).json({message:"Room not found"});
+        }
+        if(room.password){
+         const isPasswordValid=await bcrypt.compare(password,room.password);
+         if(!isPasswordValid){
+            return res.status(401).json({message:"Invalid password"});
+         }
+         
+        }
+    } catch (error) {
+        res.status(500).json({message:"Error joining room",error});
+    }
+}
+export  { createRoom, joinRoom, getRooms };

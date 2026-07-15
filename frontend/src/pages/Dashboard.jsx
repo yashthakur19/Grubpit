@@ -41,6 +41,7 @@ function Dashboard() {
     await fetchRooms(); // Fetch the updated list of rooms after creation
     setRoom(prevRooms => [...prevRooms, response.data]); // Update the room state with the new room
     console.log('Response from server:', response.data);
+    Navigate('/RoomPage');
       }
     catch (error) {
       console.error('Error creating room:', error);
