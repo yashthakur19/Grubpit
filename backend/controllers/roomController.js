@@ -1,6 +1,7 @@
 import Room from '../models/roomModel.js';
 import generateRoomCode from '../utils/generateRoomCode.js';
 import bcrypt from 'bcrypt';
+
 async function createRoom(req,res){
 
     try{
@@ -49,10 +50,41 @@ async function joinRoom(req,res){
          if(!isPasswordValid){
             return res.status(401).json({message:"Invalid password"});
          }
-         
+         return res.status(202).json({
+            message:"Room found"
+         })
         }
     } catch (error) {
         res.status(500).json({message:"Error joining room",error});
     }
 }
-export  { createRoom, joinRoom, getRooms };
+async function getRoom(req,res){
+    try{
+        const {roomCode}=req.params;
+
+        const roomAvailable= await Room.findOne({roomCode});
+
+        if(roomAvailable){
+            return res.status(200).json({
+                success:true,
+                roomName:roomAvailable.Roomname,
+                roomCode:roomAvailable.Roomcode,
+                roomType:roomAvailable.Roomtype
+            });
+        }
+
+        return res.status(404).json({
+            success:false,
+            message:"Room not found"
+        });
+    }
+    catch(error){
+        console.error("Error in getRoom controller:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error."
+    });
+    }
+}
+
+export  { createRoom, joinRoom, getRooms, getRoom };

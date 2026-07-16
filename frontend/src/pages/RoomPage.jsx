@@ -8,6 +8,10 @@ import Navbar from '../components/room/roomNavbar';
 import Chat from '../components/room/chat';
 import Users from '../components/room/users';
 function RoomPage(){
+    const { roomCode }=useParams();
+
+    console.log(roomCode);
+    
     return (
         <main>
             <Navbar/>

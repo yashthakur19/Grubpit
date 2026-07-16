@@ -8,7 +8,9 @@ import WelcomeCard from '../components/welcome/WelcomeCard';
 import './Dashboard.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function Dashboard() {
+  const Navigate=useNavigate();
   async function fetchRooms() {
     try {
       const response = await axios.get('http://localhost:5000/api/room');
@@ -39,9 +41,9 @@ function Dashboard() {
       try{
     const response = await axios.post('http://localhost:5000/api/room', RoomData);
     await fetchRooms(); // Fetch the updated list of rooms after creation
-    setRoom(prevRooms => [...prevRooms, response.data]); // Update the room state with the new room
+    
     console.log('Response from server:', response.data);
-    Navigate('/RoomPage');
+    Navigate(`/room/${roomCode}`);
       }
     catch (error) {
       console.error('Error creating room:', error);
