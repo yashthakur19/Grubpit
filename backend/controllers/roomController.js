@@ -50,8 +50,13 @@ async function joinRoom(req,res){
          if(!isPasswordValid){
             return res.status(401).json({message:"Invalid password"});
          }
-         return res.status(202).json({
-            message:"Room found"
+         return res.status(200).json({
+            message:"Room found",
+room: {
+        roomCode: room.roomCode,
+        roomName: room.Roomname,
+        roomType: room.Roomtype
+    }
          })
         }
     } catch (error) {
