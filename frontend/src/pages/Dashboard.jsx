@@ -10,7 +10,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 function Dashboard() {
-  const Navigate=useNavigate();
+   const [room,setRoom]=useState([]);
+  const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
+  const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
+  const navigate=useNavigate();
   async function fetchRooms() {
     try {
       const response = await axios.get('http://localhost:5000/api/room');
@@ -30,10 +33,7 @@ function Dashboard() {
       
    
 
-  const [room,setRoom] = useState(()=>{const storedRoom = localStorage.getItem('room');
-  return storedRoom ? JSON.parse(storedRoom) : []});
-  const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
-  const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
+ 
  
     async function handleCreateRoom(RoomData) {
     // Logic to handle room creation can be added here
@@ -43,20 +43,28 @@ function Dashboard() {
     await fetchRooms(); // Fetch the updated list of rooms after creation
     
     console.log('Response from server:', response.data);
-    Navigate(`/room/${roomCode}`);
+    navigate(`/room/${response.data.newRoom.roomCode}`);
       }
     catch (error) {
       console.error('Error creating room:', error);
     }
     setIsCreateRoomModalOpen(false); // Close the modal after creation
   }
-
-  useEffect(() => {
-      console.log('Updated room state:', room);
-      localStorage.setItem('room', JSON.stringify(room));
-      console.log(localStorage.getItem('room'));
-    }, [room]);
  
+    async function handleJoinRoom(RoomData){
+      try {
+        const response=await axios.post('http://localhost:5000/api/room/join',RoomData);
+        setIsJoinRoomModalOpen(false);
+        navigate(`/room/${response.data.room.roomCode}`);
+        
+      }
+      catch(err){
+        console.log(err);
+
+        alert(err.response?.data?.message || "failed to join room");
+      }
+    }
+
   return (
  <main className="dashboard">
     <Navbar />
@@ -75,6 +83,7 @@ function Dashboard() {
       {isJoinRoomModalOpen && (
         <JoinRoomModal
           isOpen={isJoinRoomModalOpen}
+          onJoin={handleJoinRoom(RoomData)}
           onClose={() => setIsJoinRoomModalOpen(false)}
         />
       )}
