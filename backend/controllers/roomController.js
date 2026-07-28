@@ -1,8 +1,8 @@
-import Room from '../models/roomModel.js';
+import Room from '../models/Room.js';
 import generateRoomCode from '../utils/generateRoomCode.js';
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-async function createRoom(req,res){
+export async function createRoom(req,res){
 
     try{
         const {Roomname,password,Roomtype,maxparticipants}=req.body;
@@ -20,7 +20,7 @@ async function createRoom(req,res){
             Roomname,
             password: encryptedPassword,
             roomCode,
-            Roomtype,
+            category,
             maxparticipants,
         });
         res.status(201).json({message:"Room created successfully",newRoom});
@@ -29,7 +29,7 @@ async function createRoom(req,res){
     }
 }
 
-async function getRooms(req,res){
+export async function getRooms(req,res){
     try{
         const rooms=await Room.find();
         res.status(200).json(rooms);
@@ -38,7 +38,7 @@ async function getRooms(req,res){
 }
 }
 
-async function joinRoom(req,res){
+export async function joinRoom(req,res){
     try{
         const {roomCode,password}=req.body;
         const room=await Room.findOne({roomCode});
@@ -52,10 +52,10 @@ async function joinRoom(req,res){
          }
          return res.status(200).json({
             message:"Room found",
-room: {
+    room: {
         roomCode: room.roomCode,
         roomName: room.Roomname,
-        roomType: room.Roomtype
+        roomType: room.category
     }
          })
         }
@@ -63,7 +63,7 @@ room: {
         res.status(500).json({message:"Error joining room",error});
     }
 }
-async function getRoom(req,res){
+export async function getRoom(req,res){
     try{
         const {roomCode}=req.params;
 
@@ -92,4 +92,3 @@ async function getRoom(req,res){
     }
 }
 
-export  { createRoom, joinRoom, getRooms, getRoom };

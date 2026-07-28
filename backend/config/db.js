@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 async function connectDB() {
     try{
     await mongoose.connect(process.env.MONGODB_URI)||'mongodb://127.0.0.1:27017/grubpit';
@@ -9,4 +9,4 @@ async function connectDB() {
         process.exit(1);
     }
 }
-module.exports = connectDB;
+export default connectDB;

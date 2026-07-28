@@ -8,15 +8,15 @@ function App() {
 
   const GOOGLE_CLIENT_ID = "678355684672-9l13qj44i9lovtgqktftn4iv2sihkmft.apps.googleusercontent.com"
   return (
-    <GoogleOAuthProvider ClientId={GOOGLE_CLIENT_ID}>
-    <BrowserRouter>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+  
     <Routes>
       
       <Route path="/" element={<Login/>}/>
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/room/:roomCode" element={<RoomPage/>}/>
       </Routes>
-       </BrowserRouter>
+     
       </GoogleOAuthProvider>
   );
 }

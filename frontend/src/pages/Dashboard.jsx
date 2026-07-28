@@ -10,14 +10,16 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 function Dashboard() {
-   const [room,setRoom]=useState([]);
+   const [rooms,setRoom]=useState([]);
   const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
   const [isJoinRoomModalOpen, setIsJoinRoomModalOpen] = useState(false);
   const navigate=useNavigate();
   async function fetchRooms() {
     try {
+      
       const response = await axios.get('http://localhost:5000/api/room');
-      setRoom(response.data);
+      const roomList = Array.isArray(response.data)?response.data:(response.data.rooms || []);
+      setRoom(roomList);
       console.log('Fetched rooms:', response.data);
     } catch (error) {
       console.error('Error fetching rooms:', error);
@@ -30,20 +32,23 @@ function Dashboard() {
     }
    },[])
 
-      
-   
-
- 
- 
     async function handleCreateRoom(RoomData) {
-    // Logic to handle room creation can be added here
+    
    
       try{
-    const response = await axios.post('http://localhost:5000/api/room', RoomData);
-    await fetchRooms(); // Fetch the updated list of rooms after creation
+        const payload = {
+      ...RoomData,
+      maxParticipants: Number(RoomData.maxParticipants)
+    };
+    const response = await axios.post('http://localhost:5000/api/room', payload);
+    
     
     console.log('Response from server:', response.data);
-    navigate(`/room/${response.data.newRoom.roomCode}`);
+
+     await fetchRooms();
+     console.log(JSON.stringify(response.data, null, 2));
+    console.log("Navigating to:",`/room/${response.data.newRoom.roomCode}`);
+     navigate(`/room/${response.data.newRoom.roomCode}`);
       }
     catch (error) {
       console.error('Error creating room:', error);
@@ -83,14 +88,14 @@ function Dashboard() {
       {isJoinRoomModalOpen && (
         <JoinRoomModal
           isOpen={isJoinRoomModalOpen}
-          onJoin={handleJoinRoom(RoomData)}
+          onJoin={handleJoinRoom}
           onClose={() => setIsJoinRoomModalOpen(false)}
         />
       )}
     
     
     <div className="dashboard-content">
-        <RoomHistory room={room} />
+        <RoomHistory room={rooms} />
         <Notifications />
     </div>
     
