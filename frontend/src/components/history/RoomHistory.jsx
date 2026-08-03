@@ -9,9 +9,9 @@ function RoomHistory({ room=[] }) {
             <p>No rooms available.</p>
           ) : (
             <ul>
-           {rooms.map((item) => (
-          <li key={item._id || item.roomCode}>
-            <span>{item.roomName || item.roomCode}</span>
+           {room.map((item) => (
+          <li key={item._id || item.Roomcode}>
+            <span>{item.Roomname || item.Roomcode}</span>
           </li>
         ))}
             </ul>

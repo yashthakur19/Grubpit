@@ -10,12 +10,12 @@ import Users from '../components/room/users';
 function RoomPage(){
     const { roomCode }=useParams();
     const [room,setRoom]=useState(null);
-   
+    
    
     async function fetchRoom(){
         try{
-            const reponse = await axios.get('http://localhost:5000/room/api/:roomCode');
-            setRoom(Response.data.room);
+            const response = await axios.get(`http://localhost:5000/api/room/${roomCode}`);
+            setRoom(response.data.room);
         }
         catch(err){
             console.error(err);
@@ -28,11 +28,9 @@ function RoomPage(){
     return (
         <main>
 
-            <Navbar/>
+            <Navbar room={room}/>
             <Users/>
-            <h2>{room?.Roomname}</h2>
-<p>{room?.roomCode}</p>
-<p>{room?.Roomtype}</p>
+            
             <Input/>
             <OutputWin/>
             <Chat/>
