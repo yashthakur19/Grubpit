@@ -5,6 +5,7 @@ import Notifications from '../components/notifications/Notifications';
 import QuickActions from '../components/actions/QuickActions';
 import RoomHistory from '../components/history/RoomHistory';
 import WelcomeCard from '../components/welcome/WelcomeCard';
+import socket from "../services/socket";
 import './Dashboard.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';

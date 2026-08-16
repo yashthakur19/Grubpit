@@ -7,37 +7,49 @@ import OutputWin from '../components/room/output';
 import Navbar from '../components/room/roomNavbar';
 import Chat from '../components/room/chat';
 import Users from '../components/room/users';
-function RoomPage(){
-    const { roomCode }=useParams();
-    const [room,setRoom]=useState(null);
-    
-   
-    async function fetchRoom(){
-        try{
+
+function RoomPage() {
+    const { roomCode } = useParams();
+    const [room, setRoom] = useState(null);
+
+    async function fetchRoom() {
+        try {
             const response = await axios.get(`http://localhost:5000/api/room/${roomCode}`);
             setRoom(response.data.room);
-        }
-        catch(err){
+        } catch (err) {
             console.error(err);
-            alert("error occured");
+            alert("Error occurred while fetching room");
         }
     }
-     useEffect(()=>{
+
+    useEffect(() => {
         fetchRoom();
-    },[roomCode]);
+    }, [roomCode]);
+
     return (
-        <main>
-
-            <Navbar room={room}/>
-            <Users/>
+        <main className="room-container">
+            <Navbar room={room} />
             
-            <Input/>
-            <OutputWin/>
-            <Chat/>
+            <div className="workspace">
+                <aside className="users-pane">
+                    <Users />
+                </aside>
 
+                <section className="editor-pane">
+                    <div className="code-editor">
+                        <Input />
+                    </div>
+                    <div className="console-output">
+                        <OutputWin />
+                    </div>
+                </section>
+
+                <aside className="chat-pane">
+                    <Chat />
+                </aside>
+            </div>
         </main>
-    );  
-
+    );
 }
 
 export default RoomPage;
